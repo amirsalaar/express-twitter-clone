@@ -3,6 +3,7 @@ const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const clucksRouter = require('./routes/clucks');
+const knex = require('./db/client')
 
 const app = express();
 
@@ -38,7 +39,16 @@ app.use((req, res, next) => {
 
 // -= ROUTES =-
 app.get('/', (req, res) => {
-  res.render('index')
+  knex
+    .select('*')
+    .from('clucks')
+    .where('username', req.cookies.username)
+    .orderBy('created_at', 'DESC')
+    .then((clucks) => {
+      res.render('clucks/index', {
+        clucks: clucks,
+      })
+    })
 });
 
 app.get('/sign-in', (req, res) => {
@@ -53,7 +63,7 @@ app.post('/sign-in', (req, res) => {
   })
   if (username) {
     res.redirect('/clucks/new');
-  } 
+  }
 });
 
 app.post('/sign-out', (req, res) => {
