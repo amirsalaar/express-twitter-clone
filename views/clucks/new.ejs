@@ -1,0 +1,25 @@
+<%- include('../partials/header') %>
+<div class="container container-wrapper col-11 col-sm-11 col-md-8 col-lg-6">
+    <div class="row">
+        <div class="card w-100 p-2">
+            <div class="card-body">
+                <form action="/clucks/new" method="POST">
+                    <div class="form-group">
+                        <label for="cluck-content">Content</label>
+                        <textarea class="form-control" name="cluckContent" id="cluck-content" rows="4"
+                            placeholder="Whatchoo cluckin' 'bout"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="image-url">Image URL</label>
+                        <input type="url" name="imageURL" class="form-control" id="image-url"
+                            placeholder="https://i.imgur.com/yourImage.gifv">
+                    </div>
+                    <div class="d-flex flex-row-reverse">
+                        <input type="submit" class="btn btn-outline-secondary w-25" value="Cluck!">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../partials/footer') %>

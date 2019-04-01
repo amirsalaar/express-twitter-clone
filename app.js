@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
+const clucksRouter = require('./routes/clucks');
 
 const app = express();
 
@@ -50,13 +51,18 @@ app.post('/sign-in', (req, res) => {
   res.cookie('username', username, {
     age: COOKIE_MAX_AGE
   })
-  res.redirect('/')
+  if (username) {
+    res.redirect('/clucks/new');
+  } 
 });
 
 app.post('/sign-out', (req, res) => {
   res.clearCookie('username');
   res.redirect('/sign-in');
 });
+
+// CLUCKS ROUTER
+app.use('/clucks', clucksRouter);
 
 //  LISTEN
 const PORT = 4550;
