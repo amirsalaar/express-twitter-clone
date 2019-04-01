@@ -1,0 +1,25 @@
+{
+  "name": "express_twitter_clone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "db:create": "createdb --echo express_twitter_clone",
+    "db:drop": "dropdb --echo --if-exists express_twitter_clone",
+    "start": "DEBUG=knex:query nodemon app.js"
+  },
+  "keywords": [],
+  "author": "Amir Salar",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.4",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "knex": "^0.16.3",
+    "morgan": "^1.9.1",
+    "pg": "^7.9.0"
+  }
+}
