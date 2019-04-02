@@ -78,33 +78,34 @@ router.post('/new', (req, res) => {
             })
     }
 
-    // Hashtags
-    const tagArray = [];
-    const tags = [];
-    cluckContent.split(' ').forEach((element) => {
-        if (element.includes('#')) {
-            tagArray.push(element);
-        }
-    })
-    // Cleaning tagArray
-    tagArray.join('').split('#').forEach(tag => {
-        if (tag !== '') {
-            tags.push(tag);
-        }
-    })
-    // Inserting tags into database
-    tags.forEach(tag => {
-        // check if database has the tag inside it
-        // update the tag counter:
-        knex
-            .select('*')
-            .from('hashtags')
-            .where('tag_name', tag)
-            .first()
-            .then(data => {
-                data.count += 1;
-            });
-    })
+    // // Hashtags
+    // const tagArray = [];
+    // const tags = [];
+    // cluckContent.split(' ').forEach((element) => {
+    //     if (element.includes('#')) {
+    //         tagArray.push(element);
+    //     }
+    // })
+    // // Cleaning tagArray
+    // tagArray.join('').split('#').forEach(tag => {
+    //     if (tag !== '') {
+    //         tags.push(tag);
+    //     }
+    // })
+    // // Inserting tags into database
+    // tags.forEach(tag => {
+    //     // check if database has the tag inside it
+    //     // update the tag counter:
+    //     knex
+    //         .select('*')
+    //         .from('hashtags')
+    //         .where('tag_name', tag)
+    //         .first()
+    //         .then(data => {
+    //             console.log(data)
+    //             data.count += 1;
+    //         });
+    // })
 
 })
 
