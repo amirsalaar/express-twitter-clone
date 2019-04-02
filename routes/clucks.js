@@ -28,7 +28,6 @@ function convertDate(dateInMilliseconds) {
 // cluck#index
 router.get('/', (req, res) => {
     if (req.cookies.username) {
-        const readableDate = [];
         knex
             .select('*')
             .from('clucks')
@@ -41,7 +40,6 @@ router.get('/', (req, res) => {
                         readableDate: convertDate(dateInMilli)
                     })
                 });
-                console.log(clucks)
                 res.render('clucks/index', {
                     clucks: clucks,
                 })
