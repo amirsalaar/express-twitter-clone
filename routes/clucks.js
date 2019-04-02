@@ -11,15 +11,15 @@ function convertDate(dateInMilliseconds) {
     const years = Math.floor(months / 12);
     let date = '';
     if (years >= 1) {
-        return date = years + ' Years ago';
+        return date = years + ' Year(s) ago';
     } else if (months >= 1) {
-        return date = months + ' Months ago';
+        return date = months + ' Month(s) ago';
     } else if (days >= 1) {
-        return date = days + ' Days ago';
+        return date = days + ' Day(s) ago';
     } else if (hours >= 1) {
-        return date = hours + ' Hours ago';
+        return date = hours + ' Hour(s) ago';
     } else if (minutes >= 1) {
-        return date = minutes + ' Minutes ago';
+        return date = minutes + ' Minute(s) ago';
     } else {
         return 'Just now'
     }
@@ -77,6 +77,35 @@ router.post('/new', (req, res) => {
                 res.redirect('/');
             })
     }
+
+    // Hashtags
+    const tagArray = [];
+    const tags = [];
+    cluckContent.split(' ').forEach((element) => {
+        if (element.includes('#')) {
+            tagArray.push(element);
+        }
+    })
+    // Cleaning tagArray
+    tagArray.join('').split('#').forEach(tag => {
+        if (tag !== '') {
+            tags.push(tag);
+        }
+    })
+    // Inserting tags into database
+    tags.forEach(tag => {
+        // check if database has the tag inside it
+        // update the tag counter:
+        knex
+            .select('*')
+            .from('hashtags')
+            .where('tag_name', tag)
+            .first()
+            .then(data => {
+                data.count += 1;
+            });
+    })
+
 })
 
 module.exports = router;
