@@ -2,7 +2,7 @@
   "name": "express_twitter_clone",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "db:create": "createdb --echo express_twitter_clone",
     "db:drop": "dropdb --echo --if-exists express_twitter_clone",
