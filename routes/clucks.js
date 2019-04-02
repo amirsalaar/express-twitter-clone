@@ -25,6 +25,22 @@ function convertDate(dateInMilliseconds) {
     }
 }
 
+function hashtagRetriever(string) {
+    const tagArray = [];
+    const tags = [];
+    string.split(' ').forEach((element) => {
+        if (element.includes('#')) {
+            tagArray.push(element);
+        }
+    })
+    tagArray.join('').split('#').forEach(tag => {
+        if (tag !== '') {
+            tags.push(tag);
+        }
+    })
+    return tags;
+}
+
 // cluck#index
 router.get('/', (req, res) => {
     if (req.cookies.username) {
@@ -73,39 +89,34 @@ router.post('/new', (req, res) => {
             .into('clucks')
             // .returning('*')
             .then((data) => {
-                // console.log(data[0])
+                console.log(data);
                 res.redirect('/');
             })
-    }
 
-    // // Hashtags
-    // const tagArray = [];
-    // const tags = [];
-    // cluckContent.split(' ').forEach((element) => {
-    //     if (element.includes('#')) {
-    //         tagArray.push(element);
-    //     }
-    // })
-    // // Cleaning tagArray
-    // tagArray.join('').split('#').forEach(tag => {
-    //     if (tag !== '') {
-    //         tags.push(tag);
-    //     }
-    // })
-    // // Inserting tags into database
-    // tags.forEach(tag => {
-    //     // check if database has the tag inside it
-    //     // update the tag counter:
-    //     knex
-    //         .select('*')
-    //         .from('hashtags')
-    //         .where('tag_name', tag)
-    //         .first()
-    //         .then(data => {
-    //             console.log(data)
-    //             data.count += 1;
-    //         });
-    // })
+        let tags = hashtagRetriever(cluckContent);
+        // tags.forEach(tag => {
+        //     knex
+        //         .select('*')
+        //         .from('hashtags')
+        //         .then(data => {
+        //             data.forEach((hashtag) => {
+        //                 if (hashtag.tag_name === tag) {
+        //                     hashtag.count += 1
+        //                 } else {
+        //                     knex('hashtags')
+        //                         .insert({
+        //                             tag_name: tag,
+        //                             count: 1
+        //                         })
+        //                         .returning('*')
+        //                         .then((data) => {
+        //                             console.log(data);
+        //                         })
+        //                 }
+        //             })
+        //         });
+        // })
+    }
 
 })
 
