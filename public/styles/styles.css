@@ -5,3 +5,9 @@
 .cluck-info {
     font-size: 0.85em;
 }
+
+.btn.signed-in {
+    /* here copy default .btn class styles */
+    /* or something like that */
+    background-color: rgb(224, 224, 183);
+}

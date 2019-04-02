@@ -12,7 +12,7 @@
                             class="w-100" alt="">
                     </div>
                     <div class="cluck col-10">
-                        <div class="cluck-info"><span class="text-primary"><%= cluck.username %></span> • <span class="text-muted"><%= Date(cluck.created_at) %></span></div>
+                        <div class="cluck-info"><span class="text-primary"><%= cluck.username %></span> • <span class="text-muted"><%= cluck.readableDate %></span></div>
                         <div class="cluck-content mt-3"><%= cluck.content %></div>
                         <!-- if there is any photo in the cluck, img goese in below -->
                         <img src="<%= cluck.image_url %>" class="w-75" alt="">

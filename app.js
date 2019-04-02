@@ -39,16 +39,21 @@ app.use((req, res, next) => {
 
 // -= ROUTES =-
 app.get('/', (req, res) => {
-  knex
-    .select('*')
-    .from('clucks')
-    .where('username', req.cookies.username)
-    .orderBy('created_at', 'DESC')
-    .then((clucks) => {
-      res.render('clucks/index', {
-        clucks: clucks,
-      })
-    })
+  // if (req.cookies.username) {
+  //   knex
+  //     .select('*')
+  //     .from('clucks')
+  //     .where('username', req.cookies.username)
+  //     .orderBy('created_at', 'DESC')
+  //     .then((clucks) => {
+  //       res.render('clucks/index', {
+  //         clucks: clucks,
+  //       })
+  //     })
+  // } else {
+  //   res.redirect('/sign-in')
+  // }
+  res.redirect('/clucks')
 });
 
 app.get('/sign-in', (req, res) => {
