@@ -35,7 +35,7 @@ function hashtagRetriever(string) {
     })
     tagArray.join('').split('#').forEach(tag => {
         if (tag !== '') {
-            tags.push(tag);
+            tags.push(tag.trim());
         }
     })
     return tags;
@@ -87,37 +87,39 @@ router.post('/new', (req, res) => {
                 content: cluckContent,
             })
             .into('clucks')
-            // .returning('*')
             .then((data) => {
-                console.log(data);
                 res.redirect('/');
             })
 
         let tags = hashtagRetriever(cluckContent);
-        // tags.forEach(tag => {
-        //     knex
-        //         .select('*')
-        //         .from('hashtags')
-        //         .then(data => {
-        //             data.forEach((hashtag) => {
-        //                 if (hashtag.tag_name === tag) {
-        //                     hashtag.count += 1
-        //                 } else {
-        //                     knex('hashtags')
-        //                         .insert({
-        //                             tag_name: tag,
-        //                             count: 1
-        //                         })
-        //                         .returning('*')
-        //                         .then((data) => {
-        //                             console.log(data);
-        //                         })
-        //                 }
-        //             })
-        //         });
-        // })
+        tags.forEach(tag => {
+            knex('hashtags')
+                .where('tag_name', tag)
+                .then((data) => {
+                    if (data.length) {
+                        knex('hashtags')
+                            .where('id', '=', data[0].id)
+                            .update({
+                                count: data[0].count + 1
+                            })
+                            .returning('*')
+                            .then((data) => {
+                                // console.log(data)
+                            })
+                    } else {
+                        knex('hashtags')
+                            .insert({
+                                tag_name: tag,
+                                count: 1
+                            })
+                            .returning('*')
+                            .then((data) => {
+                                // console.log(data)
+                            })
+                    }
+                })
+        })
     }
-
 })
 
 module.exports = router;
