@@ -33,7 +33,9 @@
 
                     <!-- Tags comes here -->
                     <div class="">
-                        
+                        <% for (let hashtag of hashtags) {%>
+                        <h6>#<%= hashtag.tag_name %> • <%= hashtag.count %></h6>
+                        <%}%>
                     </div>
 
                 </div>

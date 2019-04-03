@@ -44,6 +44,13 @@ function hashtagRetriever(string) {
 // cluck#index
 router.get('/', (req, res) => {
     if (req.cookies.username) {
+
+        function trendingTags() {
+            return knex('hashtags')
+                .select('tag_name', 'count')
+                .orderBy('id', 'DESC')
+        } // returning a promise to be solved inside another promise, to deal with having two async functions
+
         knex
             .select('*')
             .from('clucks')
@@ -56,9 +63,13 @@ router.get('/', (req, res) => {
                         readableDate: convertDate(dateInMilli)
                     })
                 });
-                res.render('clucks/index', {
-                    clucks: clucks,
+                trendingTags().then(tags => {
+                    res.render('clucks/index', {
+                        clucks: clucks,
+                        hashtags: tags
+                    })
                 })
+
             })
     } else {
         res.redirect('/sign-in')
