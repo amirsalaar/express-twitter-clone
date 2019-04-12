@@ -1,0 +1,41 @@
+<%- include('./partials/header') %>
+<div class="container container-wrapper col-10 col-sm-10 col-md-8 col-lg-6">
+    <% if (!username) {%>
+    <div class="row">
+        <div class="card w-100 p-2">
+            <div class="card-body">
+                <form action="/sign-up" method="POST">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" class="form-control" id="username"
+                            placeholder="e.g. Madam Welminster">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" class="form-control" id="email"
+                            placeholder="e.g. madamwelminster@cluckr.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="avatar">Avatar URL</label>
+                        <input type="url" name="avatarURL" class="form-control" id="avatar"
+                            placeholder="https://avatar.com/avatar.png">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" class="form-control" id="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="password-confirm">Confirm your password</label>
+                        <input type="password" name="passwordConfirmation" class="form-control" id="password-confirm">
+                    </div>
+                    <div class="d-flex flex-row-reverse">
+                        <input type="submit" class="btn btn-primary w-25" value="Sign Up">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <% }%>
+
+</div>
+<%- include('./partials/footer') %>

@@ -1,4 +1,5 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -59,6 +60,20 @@ app.get('/', (req, res) => {
 app.get('/sign-in', (req, res) => {
   res.render('sign-in');
 });
+
+// sign-up#GET
+app.get('/sign-up', (req,res) => {
+  res.render('sign-up')
+})
+
+// sign-up#POST
+app.post('/sign-up', (req,res) => {
+  const {username, email, avatarURL, password, passwordConfirmation} = req.body;
+  if (password !== passwordConfirmation) {
+    res.render('sign-up', {email:email, avatarURL:avatarURL})
+  }
+})
+
 
 const COOKIE_MAX_AGE = 1000 * 60 * 60 * 24 * 1; // One Day
 app.post('/sign-in', (req, res) => {
